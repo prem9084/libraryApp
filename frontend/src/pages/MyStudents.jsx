@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useAuth } from "../AuthContext/AuthContext";
 
 import { Link } from "react-router-dom";
+import { Trash2 } from "lucide-react";
 const MyStudents = () => {
   const { backendUrl } = useAuth();
   const [myStudents, setMyStudents] = useState([]);
@@ -24,6 +25,23 @@ const MyStudents = () => {
     myStudent();
   }, []);
 
+  const deleteStudent = async (id) => {
+    try {
+      const { data } = await axios.delete(
+        `${backendUrl}/student/delete-student/${id}`
+      );
+      if (data.success) {
+        toast.success(data.message);
+        setMyStudents((prev) => prev.filter((student) => student._id !== id));
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error);
+    }
+  };
+
   return (
     <div className="flex flex-wrap justify-center gap-5 p-4">
       {myStudents.map((data) => (
@@ -42,26 +60,34 @@ const MyStudents = () => {
               <p className="text-sm text-gray-600 mb-2">{data.fullname}</p>
             </div>
 
-            <hr className="my-2" />
+            <hr className="h-1 text-gray-700 mb-2" />
             <div className="flex flex-row justify-between">
               <h3 className="text-md font-medium text-gray-700">
                 Date of Joining
               </h3>
               <p className="text-sm text-gray-600 mb-4">{data.comeFrom}</p>
             </div>
-            <hr />
+            <hr className="h-1 text-gray-700 mb-2" />
             <div className="flex flex-row justify-between">
               <h3 className="text-md font-medium text-gray-700">
                 Payment Status
               </h3>
               <p className="text-sm text-gray-600 mb-4">{data.payment}</p>
             </div>
-            <hr />
-            <Link to={`/details/${data._id}`}>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full">
-                View
-              </button>
-            </Link>
+            <hr className="h-1 text-gray-700 mb-2" />
+            <div className="flex justify-between">
+              <Link to={`/details/${data._id}`}>
+                <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full">
+                  View
+                </button>
+              </Link>
+              <div>
+                <Trash2
+                  className="text-red-500 cursor-pointer size-7"
+                  onClick={() => deleteStudent(data._id)}
+                />
+              </div>
+            </div>
           </div>
         </div>
       ))}

@@ -200,7 +200,7 @@ export const deleteStudent = async (req, res) => {
     res.status(200).send({ success: true, message: "Studen deleted", student });
   } catch (error) {
     console.error("Error in AddStudent:", error);
-    res.status(500).json({
+    res.json({
       success: false,
       message: "Internal Server Error",
     });

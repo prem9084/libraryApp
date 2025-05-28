@@ -3,7 +3,7 @@ import Navbar from "./NavBar";
 
 const LayOut = ({ children, showSidebar = false }) => {
   return (
-    <div className="min-h-screen">
+    <div className="h-screen">
       <div className="flex">
         {showSidebar && <Sidebar />}
         <div className="flex-1 flex flex-col">

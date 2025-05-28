@@ -38,7 +38,7 @@ const Sidebar = () => {
           to="/add-Student"
           className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case ${
             currentPath === "/add-Student"
-              ? "btn-active bg-gray-400 test-white"
+              ? "btn-active bg-gray-400 text-white"
               : ""
           }`}
         >
@@ -49,7 +49,7 @@ const Sidebar = () => {
           to="/my-student"
           className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case ${
             currentPath === "/my-student"
-              ? "btn-active bg-gray-400 test-white"
+              ? "btn-active bg-gray-400 text-white"
               : ""
           }`}
         >
@@ -59,8 +59,8 @@ const Sidebar = () => {
         <Link
           to={`/profile/${auth?.user?._id}`}
           className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case ${
-            currentPath === "/profile/:id"
-              ? "btn-active bg-gray-400 test-white"
+            currentPath.startsWith("/profile/")
+              ? "btn-active bg-gray-400 text-white"
               : ""
           }`}
         >
