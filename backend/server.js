@@ -1,6 +1,5 @@
 import express from "express";
 import "dotenv/config";
-import morgan from "morgan";
 import cors from "cors";
 import { connectDB } from "./config/db.js";
 import connectCloudinary from "./config/cloudinary.js";
@@ -11,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 connectCloudinary();
 
 app.use(express.json());
-app.use(morgan("dev"));
+
 app.use(cors());
 
 // routes
